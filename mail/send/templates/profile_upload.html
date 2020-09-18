@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container jumbotron">
+    {% if messages %}
+    {% for message in messages %}
+        <div class="">
+            <strong>{{message|safe}}</strong>
+        </div>
+    {% endfor %}
+    <br>
+    {% else %}
+    <br>
+    {{order}}
+    <hr>
+    <form class="form" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+        <label for="file1"> Upload a file</label>
+        <input type="file" id="file1" name="file">
+        <small>Only accepts CSV files</small>
+        <button class="btn btn-success" type="submit">Upload</button>
+    </form>
+    <h4 class="my-2">Profiles</h4>
+    {% endif %}
+    <table class="table">
+        <thead>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+        </thead>
+        <tbody>
+            {% for profile in profiles %}
+            <tr>
+                <td>{{profile.name}}</td>
+                <td>{{profile.email}}</td>
+                <td>{{profile.phone}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
